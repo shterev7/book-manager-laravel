@@ -15,9 +15,9 @@ class CreateBooksTable extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
-            $table->integer('author')->unsigned();
-            $table->foreign('author')->references('id')->on('authors')->onDelete('cascade');
+            $table->string('title')->nullable();
+            $table->integer('author')->unsigned()->nullable();
+            $table->foreign('author')->references('id')->on('authors')->onDelete('set null');
 
             $table->timestamps();
         });

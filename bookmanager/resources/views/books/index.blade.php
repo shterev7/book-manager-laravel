@@ -39,8 +39,7 @@
             @foreach($books as $book)
                 <tr>
                     <td>{{$book['id']}}</td>
-                    <td>{{$book.$author['firstname']}}</td>
-                    <td>{{$book.$author['lastname']}}</td>
+                    <td>{{$book->$author['firstname']}} {{$book->$author['lastname']}}</td>
                     <td><a href="{{action('BooksController@edit', $book['id'])}}" class="btn btn-warning">Edit</a></td>
                     <td>
                         <form action="{{action('BooksController@destroy', $book['id'])}}" method="post">

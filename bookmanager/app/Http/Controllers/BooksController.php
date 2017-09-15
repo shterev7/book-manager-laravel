@@ -23,13 +23,13 @@ class BooksController extends Controller
         return view('books.index');
     }
 
-    public function store(Request $request)
+    public function store(Request $request, $author)
     {
-        $books = new Books([
-            'title' => $request->get('title'),
-            'author'=> $request->get('author')
-        ]);
+        $books = new Books();
 
+        $books->title = $request->get('title');
+        $books->$author->firstname = $request->get('firstname');
+        $books->$author->lastname = $request->get('lastname');
         $books->save();
         return redirect('/books');
     }
