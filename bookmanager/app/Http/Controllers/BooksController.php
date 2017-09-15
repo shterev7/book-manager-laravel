@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Books;
 use App\Authors;
+use App\User;
 use Illuminate\Http\Request;
 
 class BooksController extends Controller
@@ -12,7 +14,7 @@ class BooksController extends Controller
         $books = Books::all()->toArray();
         $authors = Authors::all()->toArray();
 
-        return view('books.index', compact('books','authors'));
+        return view('books.index', compact('books', 'authors'));
     }
 
 
@@ -25,8 +27,7 @@ class BooksController extends Controller
     {
         $books = new Books([
             'title' => $request->get('title'),
-            'author' => $request->get('firstname'),
-            'author' => $request->get('lastname')
+            'author'=> $request->get('author')
         ]);
 
         $books->save();
@@ -37,7 +38,7 @@ class BooksController extends Controller
     public function edit($id)
     {
         $book = Books::find($id);
-        return view('books.edit', compact('book','id'));
+        return view('books.edit', compact('book', 'id'));
     }
 
 
@@ -45,8 +46,8 @@ class BooksController extends Controller
     {
         $book = Books::find($id);
         $book->title = $request->get('title');
-        $book->books.author.$firstname = $request->get('firstname');
-        $book->books.author.$lastname = $request->get('lastname');
+        $book->author = $request->get('firstname');
+        $book->author = $request->get('lastname');
 
         $book->save();
         return redirect('/books');

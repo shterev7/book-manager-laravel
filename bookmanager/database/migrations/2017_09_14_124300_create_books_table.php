@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-
 class CreateBooksTable extends Migration
 {
     /**
@@ -16,24 +15,15 @@ class CreateBooksTable extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->increments('id');
-            $table->foreign('user')->references('id')->on('User');
             $table->string('title');
-            $table->foreign('author')->references('id')->on('Authors');
+            $table->integer('author')->unsigned();
+            $table->foreign('author')->references('id')->on('authors')->onDelete('cascade');
 
             $table->timestamps();
         });
     }
 
-    public function review()
-    {
-        Schema::create('reviews', function (Blueprint $table) {
-            $table->increments('id');
-            $table->foreign('book')->references('id')->on('Books');
-            $table->string('author');
-            $table->string('text');
-        }
-        );
-    }
+
 
 
     /**
