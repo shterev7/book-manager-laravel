@@ -23,14 +23,21 @@ class BooksController extends Controller
         return view('books.index');
     }
 
-    public function store(Request $request, $author)
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function store(Request $request)
     {
-        $books = new Books();
+        $book = new Books();
 
-        $books->title = $request->get('title');
-        $books->$author->firstname = $request->get('firstname');
-        $books->$author->lastname = $request->get('lastname');
-        $books->save();
+        $book->title = $request->get('title');
+        $book->author = $request->get('author');
+
+//        $book->author['firstname'] = $request->get('firstname');
+//        $book->author['lastname'] = $request->get('lastname');
+        $book->save();
+
         return redirect('/books');
     }
 
@@ -46,8 +53,8 @@ class BooksController extends Controller
     {
         $book = Books::find($id);
         $book->title = $request->get('title');
-        $book->author = $request->get('firstname');
-        $book->author = $request->get('lastname');
+        $book->author->firstname = $request->get('firstname');
+        $book->author->lastname = $request->get('lastname');
 
         $book->save();
         return redirect('/books');
