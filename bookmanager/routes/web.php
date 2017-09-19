@@ -18,8 +18,6 @@ Route::get('/', function () {
 Route::resource('authors', 'AuthorsController');
 Route::resource('books', 'BooksController');
 
-//Route::get('login', array('uses' => 'HomeController@showLogin'));
-//Route::post('login', array('uses' => 'HomeController@doLogin'));
 
 // Authentication routes...
 Route::get('auth/login', 'Auth\LoginController@getLogin');

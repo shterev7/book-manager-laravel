@@ -22,7 +22,7 @@
                     </select>
                 </div>
             </div>
-                    <input type="submit" value="Create" />
+                    <input type="submit" class="btn btn-primary" />
         </form>
     </div>
 
@@ -40,7 +40,7 @@
                 <tr>
                     <td>{{$book['id']}}</td>
                     <td>{{$book['title']}}</td>
-                    <td>{{$book['author']}} </td>
+                    <td>{{$book->author->firstname}} {{$book->author->lastname}}</td>
                     <td><a href="{{action('BooksController@edit', $book['id'])}}" class="btn btn-warning">Edit</a></td>
                     <td>
                         <form action="{{action('BooksController@destroy', $book['id'])}}" method="post">

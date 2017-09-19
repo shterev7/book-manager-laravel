@@ -6,15 +6,22 @@ use App\Books;
 use App\Authors;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BooksController extends Controller
 {
     public function index()
     {
-        $books = Books::all()->toArray();
-        $authors = Authors::all()->toArray();
+        if (Auth::guest()) {
+            return redirect('/login');
+        }
+        else
+            {
+                $books = Books::all()->toArray();
+                $authors = Authors::all()->toArray();
 
-        return view('books.index', compact('books', 'authors'));
+                return view('books.index', compact('books', 'authors'));
+            }
     }
 
 
@@ -29,16 +36,20 @@ class BooksController extends Controller
      */
     public function store(Request $request)
     {
-        $book = new Books();
+        $books = new Books;
 
-        $book->title = $request->get('title');
-        $book->author = $request->get('author');
+        $books->title = $request->get('title');
 
-//        $book->author['firstname'] = $request->get('firstname');
-//        $book->author['lastname'] = $request->get('lastname');
-        $book->save();
+        $books->author->firstname = $request->get('firstname');
+        $books->author->lastname = $request ->get('lastname');
+//        $books->author()->associate($books);
+        $books->save();
 
         return redirect('/books');
+
+//        $books->author['firstname'] = $request->get('firstname');
+//        $books->author['lastname'] = $request->get('lastname');
+
     }
 
 

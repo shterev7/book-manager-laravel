@@ -4,15 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Authors;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthorsController extends Controller
 {
 
     public function index()
     {
-        $authors = Authors::all()->toArray();
+        if (Auth::guest()) {
+            return redirect('/login');
+        }
+        else {
 
-        return view('authors.index', compact('authors'));
+
+            $authors = Authors::all()->toArray();
+
+            return view('authors.index', compact('authors'));
+        }
     }
 
     public function create()
