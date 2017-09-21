@@ -19,13 +19,13 @@ class AuthorsController extends Controller
 
             $authors = Authors::all()->toArray();
 
-            return view('authors.index', compact('authors'));
+            return view('authors.index_authors', compact('authors'));
         }
     }
 
     public function create()
     {
-        return view('authors.index');
+        return view('authors.index_authors');
     }
 
     public function store(Request $request)
@@ -49,7 +49,7 @@ class AuthorsController extends Controller
     public function edit($id)
     {
         $author = Authors::find($id);
-        return view('authors.edit', compact('author','id'));
+        return view('authors.edit_authors', compact('author','id'));
     }
 
 

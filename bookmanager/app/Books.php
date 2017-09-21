@@ -9,8 +9,9 @@ class Books extends Model
 {
     protected $table = 'books';
     protected $fillable = ['title'];
+
     public function author()
     {
-        return $this->belongsTo('App\Authors');
+        return $this->belongsTo('App\Authors', 'author_id');
     }
 }

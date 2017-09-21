@@ -20,14 +20,14 @@ class BooksController extends Controller
                 $books = Books::all()->toArray();
                 $authors = Authors::all()->toArray();
 
-                return view('books.index', compact('books', 'authors'));
+                return view('books.index_books', compact('books', 'authors'));
             }
     }
 
 
     public function create()
     {
-        return view('books.index');
+        return view('books.index_books');
     }
 
     /**
@@ -36,13 +36,39 @@ class BooksController extends Controller
      */
     public function store(Request $request)
     {
-        $books = new Books;
+
+        $books = new Books();
+        //        $authors = Authors::find($id);
 
         $books->title = $request->get('title');
+//        $books->author()->get('firstname');
+//        $books->author()->get('lastname');
+        $books->author_id = $request->get('author_id');
 
-        $books->author->firstname = $request->get('firstname');
-        $books->author->lastname = $request ->get('lastname');
-//        $books->author()->associate($books);
+
+
+//        if (is_object($books) && property_exists($books, 'title')) {
+//            $books->title = $request->get('title');
+//        }
+//        if (is_object($books) && property_exists($books, 'author_id')) {
+//
+//            $books->author()->associate('Authors');
+//        }
+
+//        dd($books->author());
+
+//        $books->author=Authors::all()->toArray();
+
+//        $books->author->firstname = $request->get('firstname');
+//        $books->author->lastname = $request->get('lastname');
+
+//        $books->author->firstname = $request->$authors('firstname');
+//        $books->author->lastname = $request->$authors('lastname');
+
+//        $books= new Books([
+//            'title' => $request->get('title'),
+//            'author'=> $request->get('author')
+//        ]);
         $books->save();
 
         return redirect('/books');
@@ -56,7 +82,7 @@ class BooksController extends Controller
     public function edit($id)
     {
         $book = Books::find($id);
-        return view('books.edit', compact('book', 'id'));
+        return view('books.edit_books', compact('book', 'id'));
     }
 
 
@@ -64,8 +90,8 @@ class BooksController extends Controller
     {
         $book = Books::find($id);
         $book->title = $request->get('title');
-        $book->author->firstname = $request->get('firstname');
-        $book->author->lastname = $request->get('lastname');
+        $book->author()->firstname = $request->get('firstname');
+        $book->author()->lastname = $request->get('lastname');
 
         $book->save();
         return redirect('/books');

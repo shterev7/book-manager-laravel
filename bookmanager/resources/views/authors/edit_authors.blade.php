@@ -1,4 +1,4 @@
-@extends('base')
+@extends('welcome')
 @section('content')
     <div class="container">
         <form method="post" action="{{action('AuthorsController@update', $id)}}">
