@@ -15,9 +15,14 @@ Route::get('/', function () {
     return view('news');
 });
 
+// Books and authors routes...
 Route::resource('authors', 'AuthorsController');
 Route::resource('books', 'BooksController');
+//Route::post('books/{author_id}', ['uses' => 'BooksController@store', 'as' => 'books.store']);
 
+// Review books routes...
+Route::post('reviews/{book_id}', ['uses' => 'ReviewsController@store', 'as' => 'reviews.store']);
+Route::resource('reviews', 'ReviewsController');
 
 // Authentication routes...
 Route::get('auth/login', 'Auth\LoginController@getLogin');

@@ -13,7 +13,8 @@
             <div class="form-group row">
                 <label for="lgFormGroupInput" class="col-sm-2 col-form-label col-form-label-lg">Author</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control form-control-lg" id="lgFormGroupInput" placeholder="author" name="author" value="{{$book->author}}">
+                    <input type="text" class="form-control form-control-lg" id="lgFormGroupInput" placeholder="author" name="author_id"
+                           value="{{$book->author->firstname}} {{$book->author->lastname}}">
                 </div>
             </div>
             <div class="form-group row">

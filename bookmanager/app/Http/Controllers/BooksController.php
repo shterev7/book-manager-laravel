@@ -17,7 +17,7 @@ class BooksController extends Controller
         }
         else
             {
-                $books = Books::all()->toArray();
+                $books = Books::all();
                 $authors = Authors::all()->toArray();
 
                 return view('books.index_books', compact('books', 'authors'));
@@ -36,45 +36,16 @@ class BooksController extends Controller
      */
     public function store(Request $request)
     {
-
+        $author = Authors::find($request->get('author_id'));
         $books = new Books();
-        //        $authors = Authors::find($id);
 
         $books->title = $request->get('title');
-//        $books->author()->get('firstname');
-//        $books->author()->get('lastname');
-        $books->author_id = $request->get('author_id');
+        $books->author()->associate($author);
 
 
-
-//        if (is_object($books) && property_exists($books, 'title')) {
-//            $books->title = $request->get('title');
-//        }
-//        if (is_object($books) && property_exists($books, 'author_id')) {
-//
-//            $books->author()->associate('Authors');
-//        }
-
-//        dd($books->author());
-
-//        $books->author=Authors::all()->toArray();
-
-//        $books->author->firstname = $request->get('firstname');
-//        $books->author->lastname = $request->get('lastname');
-
-//        $books->author->firstname = $request->$authors('firstname');
-//        $books->author->lastname = $request->$authors('lastname');
-
-//        $books= new Books([
-//            'title' => $request->get('title'),
-//            'author'=> $request->get('author')
-//        ]);
         $books->save();
 
         return redirect('/books');
-
-//        $books->author['firstname'] = $request->get('firstname');
-//        $books->author['lastname'] = $request->get('lastname');
 
     }
 
@@ -88,10 +59,11 @@ class BooksController extends Controller
 
     public function update(Request $request, $id)
     {
+        $author = Authors::find($request->get('author_id'));
         $book = Books::find($id);
         $book->title = $request->get('title');
-        $book->author()->firstname = $request->get('firstname');
-        $book->author()->lastname = $request->get('lastname');
+        $book->author()->associate($author);
+        //TODO: Find The author by ID and Associate it with the book!
 
         $book->save();
         return redirect('/books');

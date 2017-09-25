@@ -15,7 +15,7 @@
                 {{csrf_field()}}
                 <label for="lgFormGroupInput" class="col-sm-2 col-form-label col-form-label-lg">Author</label>
                 <div class="col-sm-10">
-                    <select id="author" name="author">
+                    <select id="author" name="author_id">
                         <option value="Z">Select an author</option>
                         @foreach ($authors as $author)
                         <option value="{{$author['id']}}">{{$author['firstname']}} {{$author['lastname']}}</option>
@@ -26,7 +26,6 @@
                     <input type="submit" class="btn btn-primary" />
         </form>
     </div>
-
     <div class="container">
         <table class="table table-striped">
             <thead>
@@ -37,16 +36,11 @@
             </tr>
             </thead>
             <tbody>
-            {{--@foreach($books->author() as $book)--}}
-            {{--@foreach($books=[] as $book)--}}
-            @foreach($books as $book)
+           @foreach($books as $book)
                 <tr>
-                    <td>{{$book['id']}}</td>
-                    <td>{{$book['title']}}</td>
-                    <td>{{$book['author_id']}}</td>
-                    {{--<td>{{$book->author->firstname}} {{$book->author->lastname}}</td>--}}
-                    {{--<td>{{$book->author['firstname']}} {{$book->author['lastname']}}</td>--}}
-                    {{--<td>{{$book->author()->firstname}} {{$book->author()->lastname}}</td>--}}
+                    <td>{{$book->id}}</td>
+                    <td>{{$book->title}}</td>
+                    <td>{{$book->author->firstname}} {{$book->author->lastname}}</td>
                     <td><a href="{{action('BooksController@edit', $book['id'])}}" class="btn btn-warning">Edit</a></td>
                     <td>
                         <form action="{{action('BooksController@destroy', $book['id'])}}" method="post">
@@ -55,6 +49,7 @@
                             <button class="btn btn-danger" type="submit">Delete</button>
                         </form>
                     </td>
+                    <td><a href="{{action('ReviewsController@store', $book->id)}}" class="btn btn-primary">Review</a></td>
                 </tr>
             @endforeach
             </tbody>
