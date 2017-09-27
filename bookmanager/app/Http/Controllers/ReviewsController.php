@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Review;
 use Illuminate\Http\Request;
 use App\Books;
-use Session;
 
 class ReviewsController extends Controller
 {
@@ -14,9 +13,12 @@ class ReviewsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+
+    public function index(Request $request, $bookId)
     {
-        //
+        $book = Books::find($bookId);
+        $reviews = Review::all();
+        return view('books.review_books', compact('book', 'reviews'));
     }
 
     /**
@@ -26,16 +28,15 @@ class ReviewsController extends Controller
      */
     public function create()
     {
-        //
+        return view('books.review_books');
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param $book_id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(Request $request, $book_id)
     {
         $book = Books::find($request->get('book_id'));
         $review = new Review();
@@ -44,8 +45,9 @@ class ReviewsController extends Controller
         $review->review = $request->get('review');
         $review->book()->associate($book);
         $review->save();
-        Session::flash('success', 'Review was added');
-        return view('books.review_books', compact('book', 'book_id'));
+
+        //TODO: Redirect to reviews/{book_id}
+        return redirect('/books');
     }
 
     /**

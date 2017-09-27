@@ -5,7 +5,7 @@
 
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <h3 class="reviews-title"> {{ $book->reviews()->count() }} Reviews</h3>
+            <h3 class="reviews-title"> {{$book->reviews()->count()}} Reviews</h3>
             @foreach($book->reviews as $review)
                 <div class="review">
                     <p><strong>Name:</strong> {{$review->name}}</p>
@@ -18,7 +18,7 @@
 
     <div class="row">
         <div id="review-form" class="col-md-8 col-md-offset-2" style="margin-top: 50px;">
-            {{ Form::open(['route' => ['reviews.store', $book->id], 'method' => 'POST']) }}
+            {{ Form::open(['url' => ['reviews.store', $book->id], 'method' => 'POST']) }}
 
             <div class="row">
                 <div class="col-md-6">

@@ -17,7 +17,7 @@ class AuthorsController extends Controller
         else {
 
 
-            $authors = Authors::all()->toArray();
+            $authors = Authors::all();
 
             return view('authors.index_authors', compact('authors'));
         }

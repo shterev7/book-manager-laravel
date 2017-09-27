@@ -13,8 +13,12 @@
             <div class="form-group row">
                 <label for="lgFormGroupInput" class="col-sm-2 col-form-label col-form-label-lg">Author</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control form-control-lg" id="lgFormGroupInput" placeholder="author" name="author_id"
-                           value="{{$book->author->firstname}} {{$book->author->lastname}}">
+                    <select id="author_id" name="author_id">
+                        <option value="Z">Select an author</option>
+                        @foreach ($authors as $author)
+                            <option value="{{$author->id}}">{{$author->firstname}} {{$author->lastname}}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="form-group row">

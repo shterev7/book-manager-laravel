@@ -3,6 +3,14 @@
 
     <div class="container">
 
+        <form method="GET" action='/books/search'>
+            <div>
+                <label for="searchbar"></label>
+                <input type="text" name="q" id=search placeholder="Search books" />
+                <input type="submit" value="Search" />
+            </div>
+        </form>
+
         <form method="post" action="{{url('books')}}">
             <div class="form-group row">
                 {{csrf_field()}}
@@ -18,7 +26,7 @@
                     <select id="author" name="author_id">
                         <option value="Z">Select an author</option>
                         @foreach ($authors as $author)
-                        <option value="{{$author['id']}}">{{$author['firstname']}} {{$author['lastname']}}</option>
+                        <option value="{{$author->id}}">{{$author->firstname}} {{$author->lastname}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -41,9 +49,9 @@
                     <td>{{$book->id}}</td>
                     <td>{{$book->title}}</td>
                     <td>{{$book->author->firstname}} {{$book->author->lastname}}</td>
-                    <td><a href="{{action('BooksController@edit', $book['id'])}}" class="btn btn-warning">Edit</a></td>
+                    <td><a href="{{action('BooksController@edit', $book->id)}}" class="btn btn-warning">Edit</a></td>
                     <td>
-                        <form action="{{action('BooksController@destroy', $book['id'])}}" method="post">
+                        <form action="{{action('BooksController@destroy', $book->id)}}" method="post">
                             {{csrf_field()}}
                             <input name="_method" type="hidden" value="DELETE">
                             <button class="btn btn-danger" type="submit">Delete</button>

@@ -37,12 +37,12 @@
             <tbody>
             @foreach($authors as $author)
                 <tr>
-                    <td>{{$author['id']}}</td>
-                    <td>{{$author['firstname']}}</td>
-                    <td>{{$author['lastname']}}</td>
-                    <td><a href="{{action('AuthorsController@edit', $author['id'])}}" class="btn btn-warning">Edit</a></td>
+                    <td>{{$author->id}}</td>
+                    <td>{{$author->firstname}}</td>
+                    <td>{{$author->lastname}}</td>
+                    <td><a href="{{action('AuthorsController@edit', $author->id)}}" class="btn btn-warning">Edit</a></td>
                     <td>
-                        <form action="{{action('AuthorsController@destroy', $author['id'])}}" method="post">
+                        <form action="{{action('AuthorsController@destroy', $author->id)}}" method="post">
                             {{csrf_field()}}
                             <input name="_method" type="hidden" value="DELETE">
                             <button class="btn btn-danger" type="submit">Delete</button>
