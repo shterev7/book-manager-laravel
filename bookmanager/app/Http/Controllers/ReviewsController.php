@@ -36,9 +36,9 @@ class ReviewsController extends Controller
      * @param $book_id
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request, $book_id)
+    public function store(Request $request, $id)
     {
-        $book = Books::find($request->get('book_id'));
+        $book = Books::find($id);
         $review = new Review();
         $review->name = $request->get('name');
         $review->email = $request->get('email');
@@ -47,7 +47,7 @@ class ReviewsController extends Controller
         $review->save();
 
         //TODO: Redirect to reviews/{book_id}
-        return redirect('/books');
+        return redirect()->route('reviews.store', $book->id);
     }
 
     /**

@@ -81,12 +81,12 @@ class BooksController extends Controller
 
     public function search()
     {
-        $search= Input::get('search');
-        $result= Books::where('title', 'LIKE', '%'. $search .'%')->get();
+        $search= Input::get('q');
+        $result= Books::where('title', 'LIKE', 'q'. $search .'q')->first();
 
         if ($result->first()) {
 
-            $books= Books::where('title', 'LIKE', '%'. $search .'%');
+            $books= Books::where('title', 'LIKE', 'q'. $search .'q');
 
             return view('books.index_books', compact('books'));
         }

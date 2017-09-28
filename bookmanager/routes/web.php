@@ -21,14 +21,16 @@ Route::resource('books', 'BooksController');
 //Route::post('books/{author_id}', ['uses' => 'BooksController@store', 'as' => 'books.store']);
 
 // Review books routes...
-Route::post('reviews/{book_id}', ['uses' => 'ReviewsController@store', 'as' => 'reviews.store']);
 Route::resource('reviews/{book_id}', 'ReviewsController');
 
+Route::post('reviews/{book_id}', ['uses' => 'ReviewsController@store', 'as' => 'reviews.store']);
+
+
 // Search books routes...
-Route::get('search', array(
-    'as'    =>  'search',
+Route::get('search',[
+    'as'    =>  'q',
     'uses'  =>  'BooksController@search'
-));
+]);
 
 // Authentication routes...
 Route::get('auth/login', 'Auth\LoginController@getLogin');
