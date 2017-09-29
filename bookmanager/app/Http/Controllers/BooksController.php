@@ -7,7 +7,6 @@ use App\Authors;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Input;
 
 class BooksController extends Controller
 {
@@ -21,7 +20,7 @@ class BooksController extends Controller
                 $books = Books::all();
                 $authors = Authors::all();
 
-                return view('books.index_books', compact('books', 'authors'));
+                return view('books.index_books', ['results' => $books, 'authors' => $authors ]);
             }
     }
 
@@ -79,23 +78,18 @@ class BooksController extends Controller
         return redirect('/books');
     }
 
-    public function search()
+    public function search(Request $request)
     {
-        $search= Input::get('q');
-        $result= Books::where('title', 'LIKE', 'q'. $search .'q')->first();
+        $q = $request->query('q');
+        $author = Authors::all();
 
-        if ($result->first()) {
 
-            $books= Books::where('title', 'LIKE', 'q'. $search .'q');
 
-            return view('books.index_books', compact('books'));
-        }
-        else {
+        $results = Books::where('title', 'like', "%$q%")
+            ->orWhere($author->firstname, 'like', "%$q%")
+            ->orWhere($author->lastname, 'like', "%$q%");
 
-            $books = Books::orderBy('title', 'asc');
-
-            return view('books.index_books', compact('books'));
-        }
+        return view('books.index_books', ['results' => $results,'q' => $q]);
 
     }
 }

@@ -3,13 +3,14 @@
 
     <div class="container">
 
-        <form method="GET" action='/books/search'>
+        <form method="GET" action="{{url('books')}}">
             <div>
                 <label for="searchbar"></label>
                 <input type="text" name="q" id=search placeholder="Search books" />
                 <input type="submit" value="Search" />
             </div>
         </form>
+        <br>
 
         <form method="post" action="{{url('books')}}">
             <div class="form-group row">
@@ -44,7 +45,7 @@
             </tr>
             </thead>
             <tbody>
-           @foreach($books as $book)
+           @foreach($results as $book)
                 <tr>
                     <td>{{$book->id}}</td>
                     <td>{{$book->title}}</td>
