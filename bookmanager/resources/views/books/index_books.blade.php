@@ -3,11 +3,14 @@
 
     <div class="container">
 
-        <form method="GET" action="{{url('books')}}">
-            <div>
-                <label for="searchbar"></label>
-                <input type="text" name="q" id=search placeholder="Search books" />
-                <input type="submit" value="Search" />
+        <form method="GET" action="{{url('books/{q?}')}}">
+            <div class="form-group row">
+                <label for="lgFormGroupInput" class="col-sm-2 col-form-label col-form-label-lg"></label>
+                <div class="col-sm-10">
+                <input type="text" class="form-control form-control-lg" id="lgFormGroupInput" name="q" placeholder="Search books" />
+                    <br>
+                <input type="submit" class="btn btn-primary" value="Search" />
+                </div>
             </div>
         </form>
         <br>
@@ -30,9 +33,10 @@
                         <option value="{{$author->id}}">{{$author->firstname}} {{$author->lastname}}</option>
                         @endforeach
                     </select>
+                    <input type="submit" class="btn btn-primary" value="Create" />
                 </div>
             </div>
-                    <input type="submit" class="btn btn-primary" />
+
         </form>
     </div>
     <div class="container">

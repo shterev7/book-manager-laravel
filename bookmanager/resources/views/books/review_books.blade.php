@@ -12,7 +12,7 @@
                 <div class="review">
                     {{--<p><strong>Book Title:</strong> {{$book->title}}</p>--}}
                     <p><strong>Name:</strong> {{$review->name}}</p>
-                    <p><strong>Email:</strong>{{$review->email}}</p>
+                    <p><strong>Email:</strong> {{$review->email}}</p>
                     <p><strong>Review:</strong><br> {{$review->review}}</p>
                     <p><strong>Created at:</strong> {{$review->created_at}}</p>
                     <br><br>

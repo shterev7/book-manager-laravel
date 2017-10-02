@@ -27,8 +27,17 @@ Route::resource('books', 'BooksController');
 
 
 // Search route...
+
 Route::get('books/{q?}', 'BooksController@search')->where('q', '[\w\d]+');
 
+//Route::get('books/{q?}', function ($q = null) {
+//    return $q;
+//})
+//->where('q', '[\w\d]+');
+
+
+
+//Route::get('books/{q?}', ['uses' => 'BooksController@search', 'as' => 'books.search']);
 
 // Review books routes...
 Route::resource('reviews/{book_id}', 'ReviewsController');

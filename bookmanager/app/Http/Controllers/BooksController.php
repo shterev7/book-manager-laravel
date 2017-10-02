@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Books;
 use App\Authors;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -57,6 +56,11 @@ class BooksController extends Controller
         return view('books.edit_books', compact('book', 'id', 'authors'));
     }
 
+    public function show()
+    {
+        //
+    }
+
 
     public function update(Request $request, $id)
     {
@@ -81,13 +85,23 @@ class BooksController extends Controller
     public function search(Request $request)
     {
         $q = $request->query('q');
-        $author = Authors::all();
-
-
+//        $author = Authors::all();
 
         $results = Books::where('title', 'like', "%$q%")
-            ->orWhere($author->firstname, 'like', "%$q%")
-            ->orWhere($author->lastname, 'like', "%$q%");
+                   ->orWhere(Authors::all('firstname'), 'like', "%$q%")
+                   ->orWhere(Authors::all('lastname'), 'like', "%$q%");
+
+//        $results = Books::where('title', 'like', "%$q%")
+//            ->orWhereHas('author', function ($query) {
+//        $query->where('firstname', 'like', "%q%")
+//            ->orWhereHas('lastname', 'like', "%q%");
+//})->get();
+
+
+
+//            ->orWhere($author->firstname, 'like', "%$q%")
+//            ->orWhere($author->lastname, 'like', "%$q%");
+
 
         return view('books.index_books', ['results' => $results,'q' => $q]);
 
