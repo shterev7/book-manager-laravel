@@ -19,7 +19,7 @@ class BooksController extends Controller
                 $books = Books::all();
                 $authors = Authors::all();
 
-                return view('books.index_books', ['results' => $books, 'authors' => $authors ]);
+                return view('books.index_books', ['result' => $books, 'authors' => $authors ]);
             }
     }
 
@@ -84,26 +84,29 @@ class BooksController extends Controller
 
     public function search(Request $request)
     {
-        $q = $request->query('q');
-//        $author = Authors::all();
+        $authors = Authors::all();
+        $search = $request->get('q');
 
-        $results = Books::where('title', 'like', "%$q%")
-                   ->orWhere(Authors::all('firstname'), 'like', "%$q%")
-                   ->orWhere(Authors::all('lastname'), 'like', "%$q%");
-
-//        $results = Books::where('title', 'like', "%$q%")
-//            ->orWhereHas('author', function ($query) {
-//        $query->where('firstname', 'like', "%q%")
-//            ->orWhereHas('lastname', 'like', "%q%");
-//})->get();
+        $books = Books::whereHas('author', function($authors) use ($search)
+        {
+            $authors->where('firstname','LIKE','%'.$search.'%')
+            ->orWhere('lastname', 'LIKE', '%'.$search.'%');
+        })
+            ->orWhere('title', 'LIKE', '%'.$search.'%')
+            ->get();
 
 
 
-//            ->orWhere($author->firstname, 'like', "%$q%")
-//            ->orWhere($author->lastname, 'like', "%$q%");
+
+//        $books = Books::where('title','LIKE','%'.$search.'%')
+//            ->orWhere('author_id', 'LIKE', '%'.$search.'%')
+//            ->get();
 
 
-        return view('books.index_books', ['results' => $results,'q' => $q]);
+
+
+
+        return view('books.index_books', ['result' => $books, 'authors' => $authors ]);
 
     }
 }

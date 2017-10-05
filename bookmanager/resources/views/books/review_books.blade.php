@@ -41,7 +41,7 @@
                     {{ Form::label('review', "Review:") }}
                     {{ Form::textarea('review', null, ['class' => 'form-control', 'rows' => '5']) }}
 
-                    {{ Form::submit('Add Review', ['class' => 'btn btn-success btn-block', 'style' => 'margin-top:15px;']) }}
+                    {{ Form::submit('Add Review', ['class' => 'btn btn-primary btn-block', 'style' => 'margin-top:15px;']) }}
                 </div>
             </div>
 

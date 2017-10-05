@@ -22,13 +22,16 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // Books and authors routes...
 Route::resource('authors', 'AuthorsController');
+Route::get('books/search', 'BooksController@search')->name('search');
 Route::resource('books', 'BooksController');
 //Route::post('books/{author_id}', ['uses' => 'BooksController@store', 'as' => 'books.store']);
 
 
 // Search route...
 
-Route::get('books/{q?}', 'BooksController@search')->where('q', '[\w\d]+');
+//Route::get('/{result}',['uses' => 'BooksController@index','as' => 'book.show']);
+
+//Route::get('books/{q?}', 'BooksController@search')->where('q', '[\w\d]+');
 
 //Route::get('books/{q?}', function ($q = null) {
 //    return $q;

@@ -3,7 +3,7 @@
 
     <div class="container">
 
-        <form method="GET" action="{{url('books/{q?}')}}">
+        <form method="GET" action="{{url('/books/search')}}">
             <div class="form-group row">
                 <label for="lgFormGroupInput" class="col-sm-2 col-form-label col-form-label-lg"></label>
                 <div class="col-sm-10">
@@ -49,12 +49,12 @@
             </tr>
             </thead>
             <tbody>
-           @foreach($results as $book)
+           @foreach($result as $book)
                 <tr>
                     <td>{{$book->id}}</td>
                     <td>{{$book->title}}</td>
                     <td>{{$book->author->firstname}} {{$book->author->lastname}}</td>
-                    <td><a href="{{action('BooksController@edit', $book->id)}}" class="btn btn-warning">Edit</a></td>
+                    <td><a href="{{action('BooksController@edit', $book->id)}}" class="btn btn-primary">Edit</a></td>
                     <td>
                         <form action="{{action('BooksController@destroy', $book->id)}}" method="post">
                             {{csrf_field()}}
